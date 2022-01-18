@@ -3,6 +3,10 @@ import React, {useState} from "react";
 const Todo= (props) => {
     const [tasks, setTasks] = useState([]);
     const [todo, setTodo] = useState("");
+    // const [check, setCheck] = useState ({
+    //     isDone: false
+    // })
+
 
 
 
@@ -12,7 +16,7 @@ const Todo= (props) => {
 
     const onSubmitHandler = event => {
         event.preventDefault();
-        console.log(`submitted`)
+        console.log(`submitted`);
         const newTodo = {
             todo: todo,
             isDone: false
@@ -20,6 +24,7 @@ const Todo= (props) => {
 
         setTasks([...tasks, newTodo]);
         setTodo("");
+        // setCheck([...check, newTodo]);
     }
 
 
@@ -29,7 +34,12 @@ const Todo= (props) => {
         newArray.splice(index, 1);
         setTasks(newArray);
     }
-
+    // const onCheckBox = (event) => {
+    //     setCheck({
+    //         ...check,
+    //         [event.isDone]: event.type ==="checkbox" ? false : true
+    //     })
+    // }
     const todoNotDone =  {
         textDecoration:"none"
     }
@@ -39,7 +49,16 @@ const Todo= (props) => {
     }
 
 
+    const onCheckHandler = (index) => {
+        const newArray = [...tasks];
+        if (newArray[index].isDone ) {
+            newArray[index].isDone = false
+        } else {
+            newArray[index].isDone = true
+        }
+        setTasks(newArray);
 
+    }
 
     return (
         <div>
@@ -50,12 +69,12 @@ const Todo= (props) => {
                     <input type="submit" value="Add" />
                 </div>
             </form>
-            <div>
+            <div >
                 {
-                    tasks.map ((tasks, i) => {
+                    tasks.map ((task, i) => {
                         return (
-                                <li key={i}  style={{color: "white"}} > <span style={tasks.isDone? todoDone: todoNotDone}>{tasks.todo}</span>
-                                <input type="checkbox" name="isDone" onChange={() => (tasks.isDone?  false: true)} />
+                                <li key={i}  style={{color: "white"}} > <span style={task.isDone? todoDone: todoNotDone}>{task.todo}</span>
+                                <input type="checkbox" name="isDone" onChange={() => {onCheckHandler(i)} }/>
                                 <button onClick={()=>{onDeleteHandler(i)}} style={{color: "red"}}> X </button></li>
                         )
                     })
