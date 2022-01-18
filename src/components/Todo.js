@@ -74,7 +74,7 @@ const Todo= (props) => {
                     tasks.map ((task, i) => {
                         return (
                                 <li key={i}  style={{color: "white"}} > <span style={task.isDone? todoDone: todoNotDone}>{task.todo}</span>
-                                <input type="checkbox" name="isDone" onChange={() => {onCheckHandler(i)} }/>
+                                <input type="checkbox" name="isDone" checked={task.isDone} onChange={() => {onCheckHandler(i)} }/>
                                 <button onClick={()=>{onDeleteHandler(i)}} style={{color: "red"}}> X </button></li>
                         )
                     })
